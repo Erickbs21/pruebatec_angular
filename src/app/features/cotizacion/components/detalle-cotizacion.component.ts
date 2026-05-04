@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CotizacionService } from '../../../core/services/cotizacion.service';
 import { PageHeaderComponent } from '../../../shared/components/page-header.component';
 import { Cotizacion, DetalleCuota } from '../../../core/models/cotizacion.model';
-import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-detalle-cotizacion',
@@ -15,9 +14,10 @@ import { map, switchMap } from 'rxjs';
     
     <main class="container" *ngIf="cotizacion">
       <div class="glass-card summary-card">
+        <h2 class="client-title">{{ cotizacion.nombreCliente }}</h2>
         <div class="summary-grid">
           <div class="summary-item">
-            <span class="label">Monto</span>
+            <span class="label">Monto Solicitado</span>
             <span class="value">Q {{ cotizacion.monto }}</span>
           </div>
           <div class="summary-item">
@@ -42,8 +42,8 @@ import { map, switchMap } from 'rxjs';
               <th>Cuota</th>
               <th>Capital</th>
               <th>Interés</th>
-              <th>Monto</th>
-              <th>Saldo</th>
+              <th>Monto Cuota</th>
+              <th>Saldo Restante</th>
             </tr>
           </thead>
           <tbody>
@@ -59,7 +59,7 @@ import { map, switchMap } from 'rxjs';
       </div>
 
       <div class="actions">
-        <button class="btn-primary" routerLink="/listado">Volver al Listado</button>
+        <button class="btn-primary" routerLink="/cotizaciones">Volver al Historial</button>
       </div>
     </main>
   `,
@@ -72,6 +72,11 @@ import { map, switchMap } from 'rxjs';
     .summary-card {
       padding: 2rem;
       margin-bottom: 2rem;
+    }
+    .client-title {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      font-size: 1.8rem;
     }
     .summary-grid {
       display: grid;
@@ -92,7 +97,7 @@ import { map, switchMap } from 'rxjs';
       font-weight: 700;
     }
     .highlight {
-      color: var(--primary-color);
+      color: var(--accent-success);
     }
     .table-container {
       overflow-x: auto;
@@ -134,8 +139,8 @@ export class DetalleCotizacionComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.cotizacionService.cotizaciones$.subscribe(list => {
-      this.cotizacion = list.find(c => c.id === id);
+    this.cotizacionService.cotizaciones$.subscribe(listado => {
+      this.cotizacion = listado.find(c => c.id === id);
       if (this.cotizacion) {
         this.tabla = this.cotizacionService.generarTablaAmortizacion(
           this.cotizacion.monto,

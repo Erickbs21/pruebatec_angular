@@ -16,8 +16,16 @@ import { PageHeaderComponent } from '../../../shared/components/page-header.comp
     <main class="container">
       <div class="glass-card form-container">
         <form [formGroup]="cotizacionForm" (ngSubmit)="onSubmit()">
-          <h2 class="form-title">Datos del Préstamo</h2>
+          <h2 class="form-title">Datos de la Cotización</h2>
           
+          <app-custom-input
+            label="Nombre del Cliente"
+            placeholder="Ej. Juan Pérez"
+            type="text"
+            formControlName="nombreCliente"
+            [error]="getErrorMessage('nombreCliente')"
+          ></app-custom-input>
+
           <app-custom-input
             label="Monto del Préstamo"
             placeholder="Ej. 15000"
@@ -45,13 +53,13 @@ import { PageHeaderComponent } from '../../../shared/components/page-header.comp
 
           <div class="summary-preview" *ngIf="cotizacionForm.valid">
             <div class="summary-item">
-              <span>Cuota Estimada:</span>
+              <span>Cuota Mensual Proyectada:</span>
               <span class="value">Q {{ cuotaEstimada }}</span>
             </div>
           </div>
 
           <button type="submit" class="btn-primary w-full" [disabled]="cotizacionForm.invalid">
-            Calcular y Guardar
+            Calcular y Guardar Cotización
           </button>
         </form>
       </div>
@@ -111,9 +119,25 @@ export class NuevaCotizacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.cotizacionForm = this.fb.group({
-      monto: [null, [Validators.required, Validators.min(1000)]],
-      tasaInteresAnual: [null, [Validators.required, Validators.min(1), Validators.max(100)]],
-      plazoMeses: [null, [Validators.required, Validators.min(1), Validators.max(120)]]
+      nombreCliente: ['', [
+        Validators.required, 
+        Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/)
+      ]],
+      monto: [null, [
+        Validators.required, 
+        Validators.min(0.01), 
+        Validators.max(60000)
+      ]],
+      tasaInteresAnual: [null, [
+        Validators.required, 
+        Validators.min(0), 
+        Validators.max(20)
+      ]],
+      plazoMeses: [null, [
+        Validators.required, 
+        Validators.min(1), 
+        Validators.max(60)
+      ]]
     });
 
     this.cotizacionForm.valueChanges.subscribe(val => {
@@ -131,8 +155,9 @@ export class NuevaCotizacionComponent implements OnInit {
     const control = this.cotizacionForm.get(controlName);
     if (control?.touched && control?.errors) {
       if (control.errors['required']) return 'Este campo es requerido';
+      if (control.errors['pattern']) return 'Solo se permiten caracteres alfabéticos';
       if (control.errors['min']) return `Valor mínimo: ${control.errors['min'].min}`;
-      if (control.errors['max']) return `Valor máximo: ${control.errors['max'].max}`;
+      if (control.errors['max']) return `Valor máximo permitido: ${control.errors['max'].max}`;
     }
     return '';
   }
@@ -144,7 +169,7 @@ export class NuevaCotizacionComponent implements OnInit {
         ...formVal,
         cuotaMensual: this.cuotaEstimada
       });
-      this.router.navigate(['/listado']);
+      this.router.navigate(['/cotizaciones']);
     }
   }
 }

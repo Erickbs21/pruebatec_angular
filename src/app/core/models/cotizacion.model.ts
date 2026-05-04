@@ -1,5 +1,6 @@
 export interface Cotizacion {
   id?: string;
+  nombreCliente: string;
   monto: number;
   tasaInteresAnual: number;
   plazoMeses: number;

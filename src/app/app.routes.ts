@@ -4,9 +4,9 @@ import { CotizacionesListComponent } from './features/cotizacion/components/coti
 import { DetalleCotizacionComponent } from './features/cotizacion/components/detalle-cotizacion.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'nueva', pathMatch: 'full' },
-  { path: 'nueva', component: NuevaCotizacionComponent },
-  { path: 'listado', component: CotizacionesListComponent },
+  { path: '', redirectTo: 'cotizaciones', pathMatch: 'full' },
+  { path: 'cotizaciones', component: CotizacionesListComponent },
+  { path: 'nueva-cotizacion', component: NuevaCotizacionComponent },
   { path: 'detalle/:id', component: DetalleCotizacionComponent },
-  { path: '**', redirectTo: 'nueva' }
+  { path: '**', redirectTo: 'cotizaciones' }
 ];

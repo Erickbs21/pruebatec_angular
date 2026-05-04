@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
     
     <main class="container">
       <div class="actions">
-        <button class="btn-primary" routerLink="/nueva">Nueva Cotización</button>
+        <button class="btn-primary" routerLink="/nueva-cotizacion">Nueva Cotización</button>
       </div>
 
       <div class="grid" *ngIf="cotizaciones$ | async as cotizaciones">
@@ -29,12 +29,13 @@ import { Observable } from 'rxjs';
             <span class="id">ID: {{ c.id?.split('-')?.at(0) }}</span>
           </div>
           <div class="card-body">
+            <h3 class="client-name">{{ c.nombreCliente }}</h3>
             <div class="data-row">
               <span class="label">Monto:</span>
               <span class="value">Q {{ c.monto }}</span>
             </div>
             <div class="data-row">
-              <span class="label">Cuota:</span>
+              <span class="label">Cuota Mensual:</span>
               <span class="value cuota">Q {{ c.cuotaMensual }}</span>
             </div>
             <div class="data-row">
@@ -79,6 +80,12 @@ import { Observable } from 'rxjs';
       border-bottom: 1px solid var(--glass-border);
       padding-bottom: 0.5rem;
     }
+    .client-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
     .data-row {
       display: flex;
       justify-content: space-between;
@@ -91,7 +98,7 @@ import { Observable } from 'rxjs';
       font-weight: 600;
     }
     .cuota {
-      color: var(--primary-color);
+      color: var(--accent-success);
       font-size: 1.1rem;
     }
     .card-footer {

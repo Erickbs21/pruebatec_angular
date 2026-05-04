@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Cotizacion, DetalleCuota } from '../models/cotizacion.model';
 
 @Injectable({
@@ -10,13 +10,16 @@ export class CotizacionService {
   public cotizaciones$ = this.cotizacionesSubject.asObservable();
 
   constructor() {
-    // Cargar cotizaciones desde localStorage si existen
-    const saved = localStorage.getItem('cotizaciones');
-    if (saved) {
-      this.cotizacionesSubject.next(JSON.parse(saved));
+    // Cargar historial desde el almacenamiento local
+    const guardadas = localStorage.getItem('cotizaciones');
+    if (guardadas) {
+      this.cotizacionesSubject.next(JSON.parse(guardadas));
     }
   }
 
+  /**
+   * Calcula la cuota mensual usando el sistema francés (amortización constante)
+   */
   calcularCuotaMensual(monto: number, tasaAnual: number, meses: number): number {
     const tasaMensual = tasaAnual / 12 / 100;
     if (tasaMensual === 0) return monto / meses;
@@ -25,6 +28,9 @@ export class CotizacionService {
     return Number(cuota.toFixed(2));
   }
 
+  /**
+   * Genera la tabla completa de amortización
+   */
   generarTablaAmortizacion(monto: number, tasaAnual: number, meses: number): DetalleCuota[] {
     const tasaMensual = tasaAnual / 12 / 100;
     const cuota = this.calcularCuotaMensual(monto, tasaAnual, meses);
@@ -36,9 +42,7 @@ export class CotizacionService {
       const capital = Number((cuota - interes).toFixed(2));
       saldoRestante = Number((saldoRestante - capital).toFixed(2));
 
-      // Ajuste para la última cuota por redondeos
       if (i === meses) {
-        // saldoRestante debería ser 0, si no, ajustamos el capital de la última cuota
         const ajuste = saldoRestante;
         tabla.push({
           numeroCuota: i,
@@ -57,13 +61,15 @@ export class CotizacionService {
         });
       }
     }
-
     return tabla;
   }
 
+  /**
+   * Almacena una nueva cotización en el historial
+   */
   guardarCotizacion(cotizacion: Cotizacion): void {
     const actual = this.cotizacionesSubject.value;
-    const nueva = {
+    const nueva: Cotizacion = {
       ...cotizacion,
       id: crypto.randomUUID(),
       fechaCreacion: new Date(),
