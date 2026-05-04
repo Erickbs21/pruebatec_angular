@@ -37,16 +37,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
       position: absolute;
       left: 1rem;
       color: var(--text-secondary);
-      font-weight: 500;
+      font-weight: 700;
+      font-size: 0.9rem;
     }
     .prefix + input {
       padding-left: 2.5rem;
     }
     .error-message {
-      color: #f87171;
-      font-size: 0.8rem;
-      margin-top: 0.25rem;
-      font-weight: 400;
+      color: #ef4444;
+      font-size: 0.7rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
   `],
   providers: [

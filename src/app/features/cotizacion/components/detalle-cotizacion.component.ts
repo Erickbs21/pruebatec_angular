@@ -70,39 +70,47 @@ import { Cotizacion, DetalleCuota } from '../../../core/models/cotizacion.model'
       padding: 0 1rem 4rem;
     }
     .summary-card {
-      padding: 2rem;
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      border-radius: 4px;
     }
     .client-title {
-      margin-bottom: 1.5rem;
-      color: var(--primary-color);
-      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
     }
     .summary-item {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
     .label {
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .value {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 700;
     }
     .highlight {
-      color: var(--accent-success);
+      color: var(--text-primary);
+      font-size: 1.4rem;
     }
     .table-container {
       overflow-x: auto;
-      margin-bottom: 2rem;
-      border-radius: 16px;
+      margin-bottom: 3rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.02);
     }
     table {
       width: 100%;
@@ -111,20 +119,23 @@ import { Cotizacion, DetalleCuota } from '../../../core/models/cotizacion.model'
     }
     th {
       background: rgba(255, 255, 255, 0.05);
-      padding: 1rem;
+      padding: 1.2rem;
       color: var(--text-secondary);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     td {
-      padding: 1rem;
-      border-top: 1px solid var(--glass-border);
+      padding: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
     }
     .font-bold { font-weight: 700; }
     .text-secondary { color: var(--text-secondary); }
     .actions {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
     }
   `]
 })

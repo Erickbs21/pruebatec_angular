@@ -59,71 +59,84 @@ import { Observable } from 'rxjs';
       padding: 0 1rem 4rem;
     }
     .actions {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
     }
     .quote-card {
-      padding: 1.5rem;
+      padding: 2rem;
+      border-radius: 4px;
     }
     .card-header {
       display: flex;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--glass-border);
-      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .client-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     .data-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      padding-bottom: 0.5rem;
     }
     .label {
       color: var(--text-secondary);
+      font-size: 0.8rem;
     }
     .value {
       font-weight: 600;
+      font-size: 0.9rem;
     }
     .cuota {
-      color: var(--accent-success);
-      font-size: 1.1rem;
+      color: var(--text-primary);
+      font-weight: 800;
     }
     .card-footer {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
     .btn-outline {
       width: 100%;
       background: transparent;
-      border: 1px solid var(--primary-color);
-      color: var(--primary-color);
-      padding: 0.6rem;
-      border-radius: 8px;
+      border: 1px solid var(--text-secondary);
+      color: var(--text-primary);
+      padding: 0.8rem;
+      border-radius: 4px;
       cursor: pointer;
       transition: all 0.3s ease;
       font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
     }
     .btn-outline:hover {
-      background: var(--primary-color);
-      color: white;
+      border-color: white;
+      background: rgba(255, 255, 255, 0.05);
     }
     .empty-state {
       grid-column: 1 / -1;
-      padding: 4rem;
+      padding: 5rem;
       text-align: center;
       color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.8rem;
     }
   `]
 })
